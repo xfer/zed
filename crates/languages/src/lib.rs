@@ -34,6 +34,7 @@ mod purescript;
 mod python;
 mod ruby;
 mod rust;
+mod scss;
 mod svelte;
 mod tailwind;
 mod terraform;
@@ -111,6 +112,7 @@ pub fn init(
         ("ruby", tree_sitter_ruby::language()),
         ("rust", tree_sitter_rust::language()),
         ("scheme", tree_sitter_scheme::language()),
+        ("scss", tree_sitter_scss::language()),
         ("svelte", tree_sitter_svelte::language()),
         ("toml", tree_sitter_toml::language()),
         ("tsx", tree_sitter_typescript::language_tsx()),
@@ -361,6 +363,11 @@ pub fn init(
         ))]
     );
     language!("dart", vec![Arc::new(dart::DartLanguageServer {})]);
+
+    language!(
+        "scss",
+        vec![Arc::new(scss::ScssLspAdapter::new(node_runtime.clone())),]
+    );
 }
 
 #[cfg(any(test, feature = "test-support"))]
