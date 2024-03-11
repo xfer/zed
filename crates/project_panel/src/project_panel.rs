@@ -1378,7 +1378,7 @@ impl ProjectPanel {
         let is_selected = self
             .selection
             .map_or(false, |selection| selection.entry_id == entry_id);
-        let width = self.width.unwrap_or(px(0.));
+        let width = self.size(cx);
 
         let filename_text_color = details
             .git_status
@@ -1426,9 +1426,11 @@ impl ProjectPanel {
                     })
                     .child(
                         if let (Some(editor), true) = (Some(&self.filename_editor), show_editor) {
-                            div().h_full().w_full().child(editor.clone())
+                            h_flex().h_6().w_full().child(editor.clone())
                         } else {
-                            div().child(Label::new(file_name).color(filename_text_color))
+                            div()
+                                .h_6()
+                                .child(Label::new(file_name).color(filename_text_color))
                         }
                         .ml_1(),
                     )
